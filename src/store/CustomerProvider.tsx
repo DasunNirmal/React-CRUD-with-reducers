@@ -1,13 +1,13 @@
-import {createContext, useState} from "react";
-import {Customer} from "../component/Customer.ts";
+import {createContext, useReducer} from "react";
+import {CustomerReducer, initialState} from "../reducers/CustomerReducer.ts";
 
 export const CustomerContext = createContext();
 
 export function CustomerProvider({children}) {
-    const [customer, setCustomer] = useState<Customer []>([]);
+    const [customer, dispatch] = useReducer(CustomerReducer, initialState);
 
     return (
-        <CustomerContext.Provider value={[customer, setCustomer]}>
+        <CustomerContext.Provider value={[customer, dispatch]}>
             {children}
         </CustomerContext.Provider>
     )
