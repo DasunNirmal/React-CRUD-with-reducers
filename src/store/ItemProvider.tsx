@@ -1,5 +1,5 @@
 import {createContext, useState} from "react";
-import {Item} from "../component/Item.ts";
+import {Item} from "../models/Item.ts";
 
 export const ItemContext = createContext();
 
