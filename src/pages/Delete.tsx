@@ -1,8 +1,8 @@
 import {useContext, useState} from "react";
 import {CustomerContext} from "../store/CustomerProvider.tsx";
-import {Customer} from "../component/Customer.ts";
+import {Customer} from "../models/Customer.ts";
 import {ItemContext} from "../store/ItemProvider.tsx";
-import {Item} from "../component/Item.ts";
+import {Item} from "../models/Item.ts";
 
 export default function Delete() {
 
