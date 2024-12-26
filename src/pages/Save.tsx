@@ -1,11 +1,12 @@
 import {useContext, useState} from "react";
 import {CustomerContext} from "../store/CustomerProvider.tsx";
-import {Customer} from "../component/Customer.ts";
+import {Customer} from "../models/Customer.ts";
 import {ItemContext} from "../store/ItemProvider.tsx";
-import {Item} from "../component/Item.ts";
+import {Item} from "../models/Item.ts";
+import {Modal} from "../component/Modal.tsx";
 
 export default function Save() {
-    const [customers, setCustomers] = useContext(CustomerContext);
+    const [customers, dispatch] = useContext(CustomerContext);
     const [items, setItems] = useContext(ItemContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function Save() {
 
     function addCustomer() {
         const newCustomer = new Customer(name, email, phone);
-        setCustomers((customers: Customer[]) => [...customers, newCustomer]);
+        dispatch({type: 'ADD_CUSTOMER', payload: newCustomer});
     }
 
     function addItem() {
@@ -31,14 +32,7 @@ export default function Save() {
             <div className="left-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Customers</h2>
 
-                <input className="mb-6 p-2" type="text" placeholder="Name"
-                       onChange={(e) => setName(e.target.value)}/>
-                <input className="mb-6 p-2" type="text" placeholder="Email"
-                       onChange={(e) => setEmail(e.target.value)}/>
-                <input className="mb-6 p-2" type="text" placeholder="Phone Number"
-                       onChange={(e) => setPhone(e.target.value)}/>
-                <button onClick={addCustomer}>Add Customer</button>
-
+                <Modal addCustomer={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Add Customer</Modal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
