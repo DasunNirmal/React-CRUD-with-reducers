@@ -3,11 +3,12 @@ import {CustomerContext} from "../store/CustomerProvider.tsx";
 import {Customer} from "../models/Customer.ts";
 import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
-import {Modal} from "../component/Modal.tsx";
+import {CustomerModal} from "../component/CustomerModal.tsx";
+import {ItemModal} from "../component/ItemModal.tsx";
 
 export default function Save() {
-    const [customers, dispatch] = useContext(CustomerContext);
-    const [items, setItems] = useContext(ItemContext);
+    const [customers, dispatchCustomer] = useContext(CustomerContext);
+    const [items, dispatchItem] = useContext(ItemContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -18,12 +19,12 @@ export default function Save() {
 
     function addCustomer() {
         const newCustomer = new Customer(name, email, phone);
-        dispatch({type: 'ADD_CUSTOMER', payload: newCustomer});
+        dispatchCustomer({type: 'ADD_CUSTOMER', payload: newCustomer});
     }
 
     function addItem() {
         const newItem = new Item(code, itemName, Number(qty));
-        setItems((items: Item[]) => [...items, newItem]);
+        dispatchItem({type: 'ADD_ITEM', payload: newItem});
     }
 
     return (
@@ -32,7 +33,7 @@ export default function Save() {
             <div className="left-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Customers</h2>
 
-                <Modal addCustomer={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Add Customer</Modal>
+                <CustomerModal addCustomer={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Add Customer</CustomerModal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
@@ -57,14 +58,7 @@ export default function Save() {
             <div className="right-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Items</h2>
 
-                <input className="mb-6 p-2" type="text" placeholder="Item COde"
-                      onChange={(e) => setCode(e.target.value)} />
-                <input className="mb-6 p-2" type="text" placeholder="Item Name"
-                      onChange={(e) => setItemName(e.target.value)} />
-                <input className="mb-6 p-2" type="text" placeholder="Item Quantity"
-                      onChange={(e) => setQty(e.target.value)} />
-                <button onClick={addItem}>Add Item</button>
-
+                <ItemModal addItem={addItem} setCode={setCode} setItemName={setItemName} setQty={setQty}>Add Item</ItemModal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
