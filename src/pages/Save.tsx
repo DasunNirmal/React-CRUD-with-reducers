@@ -18,8 +18,8 @@ export default function Save() {
     const [qty, setQty] = useState("");
 
     function addCustomer() {
-        const newCustomer = new Customer(name, email, phone);
-        dispatchCustomer({type: 'ADD_CUSTOMER', payload: newCustomer});
+        const customer = new Customer(name, email, phone);
+        dispatchCustomer({type: 'ADD_CUSTOMER', payload: customer});
     }
 
     function addItem() {
@@ -33,7 +33,7 @@ export default function Save() {
             <div className="left-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Customers</h2>
 
-                <CustomerModal addCustomer={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Add Customer</CustomerModal>
+                <CustomerModal handleSubmit={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Add Customer</CustomerModal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
@@ -58,7 +58,7 @@ export default function Save() {
             <div className="right-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Items</h2>
 
-                <ItemModal addItem={addItem} setCode={setCode} setItemName={setItemName} setQty={setQty}>Add Item</ItemModal>
+                <ItemModal handleSubmit={addItem} setCode={setCode} setItemName={setItemName} setQty={setQty}>Add Item</ItemModal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
