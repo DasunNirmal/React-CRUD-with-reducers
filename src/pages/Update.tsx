@@ -3,10 +3,11 @@ import {CustomerContext} from "../store/CustomerProvider.tsx";
 import {Customer} from "../models/Customer.ts";
 import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
+import {CustomerModal} from "../component/CustomerModal.tsx";
 
 export default function Update() {
 
-    const [customers, setCustomers] = useContext(CustomerContext);
+    const [customers, dispatchCustomer] = useContext(CustomerContext);
     const [items, setItems] = useContext(ItemContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,9 +18,8 @@ export default function Update() {
     const [qty, setQty] = useState("");
 
     function updateCustomer() {
-        const updatedCustomer = customers.map((customers:Customer) => customers.email === email ?
-            {...customers, name:name,email:email,phone:phone} : customers);
-        setCustomers(updatedCustomer)
+        const customer = new Customer(name, email, phone);
+        dispatchCustomer({type: 'UPDATE_CUSTOMER', payload: customer});
     }
 
     function updateItems() {
@@ -34,14 +34,7 @@ export default function Update() {
             <div className="left-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Update Customer</h2>
 
-                <input className="mb-6 p-2" type="text" placeholder="Name"
-                       onChange={(e) => setName(e.target.value)}/>
-                <input className="mb-6 p-2" type="text" placeholder="Email"
-                       onChange={(e) => setEmail(e.target.value)}/>
-                <input className="mb-6 p-2" type="text" placeholder="Phone Number"
-                       onChange={(e) => setPhone(e.target.value)}/>
-                <button className="buttonCSS" onClick={updateCustomer}>Update Customer</button>
-
+                <CustomerModal handleSubmit={updateCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Update Customer</CustomerModal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
