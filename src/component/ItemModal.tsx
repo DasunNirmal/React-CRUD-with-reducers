@@ -7,7 +7,7 @@ export function ItemModal(props, children) {
                    onChange={(e) => props.setItemName(e.target.value)}/>
             <input className="mb-6 p-2" type="text" placeholder="Item Quantity"
                    onChange={(e) => props.setQty(e.target.value)}/>
-            <button onClick={props.addItem}>{props.children}</button>
+            <button onClick={props.handleSubmit}>{props.children}</button>
         </>
     );
 }
