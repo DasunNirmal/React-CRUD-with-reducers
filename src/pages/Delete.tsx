@@ -6,13 +6,14 @@ import {Item} from "../models/Item.ts";
 
 export default function Delete() {
 
-    const [customers, setCustomers] = useContext(CustomerContext);
+    const [customers, dispatchCustomer] = useContext(CustomerContext);
     const [items, setItems] = useContext(ItemContext);
     const [email, setEmail] = useState("");
     const [code, setCode] = useState("");
 
     function deleteCustomer() {
-        setCustomers((customers:Customer[]) => customers.slice(0,-1));
+        // setCustomers((customers:Customer[]) => customers.slice(0,-1));
+        dispatchCustomer({type: 'DELETE_CUSTOMER', payload: email});
     }
 
     function deleteItem() {
@@ -20,8 +21,8 @@ export default function Delete() {
     }
 
     function deleteCustomerByEmail() {
-        const filteredEmail = customers.filter((customer:Customer) => customer.email === email);
-        setCustomers((customers:Customer[]) => customers.slice(filteredEmail.length));
+        // const filteredEmail = customers.filter((customer:Customer) => customer.email === email);
+        // setCustomers((customers:Customer[]) => customers.slice(filteredEmail.length));
     }
 
     function deleteItemByCode() {
