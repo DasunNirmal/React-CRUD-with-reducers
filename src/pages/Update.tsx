@@ -4,11 +4,12 @@ import {Customer} from "../models/Customer.ts";
 import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
 import {CustomerModal} from "../component/CustomerModal.tsx";
+import {ItemModal} from "../component/ItemModal.tsx";
 
 export default function Update() {
 
     const [customers, dispatchCustomer] = useContext(CustomerContext);
-    const [items, setItems] = useContext(ItemContext);
+    const [items, dispatchItem] = useContext(ItemContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -23,9 +24,8 @@ export default function Update() {
     }
 
     function updateItems() {
-        const updatedItem = items.map((items:Item) => items.code === code ?
-            {...items, code:code,itemName:itemName,qty:qty} : items);
-        setItems(updatedItem)
+        const newItem = new Item(code, itemName, Number(qty));
+        dispatchItem({type: 'UPDATE_ITEM', payload: newItem});
     }
 
     return (
@@ -59,14 +59,7 @@ export default function Update() {
             <div className="right-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Update Items</h2>
 
-                <input className="mb-6 p-2" type="text" placeholder="Item COde"
-                       onChange={(e) => setCode(e.target.value)} />
-                <input className="mb-6 p-2" type="text" placeholder="Item Name"
-                       onChange={(e) => setItemName(e.target.value)} />
-                <input className="mb-6 p-2" type="text" placeholder="Item Quantity"
-                       onChange={(e) => setQty(e.target.value)} />
-                <button onClick={updateItems}>Update Item</button>
-
+                <ItemModal handleSubmit={updateItems} setCode={setCode} setItemName={setItemName} setQty={setQty}>Add Item</ItemModal>
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
