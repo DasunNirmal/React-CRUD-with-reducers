@@ -3,6 +3,8 @@ import {CustomerContext} from "../store/CustomerProvider.tsx";
 import {Customer} from "../models/Customer.ts";
 import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
+import './Delete.css'
+import {CustomerModal} from "../component/CustomerModal.tsx";
 
 export default function Delete() {
 
@@ -12,17 +14,13 @@ export default function Delete() {
     const [code, setCode] = useState("");
 
     function deleteCustomer() {
-        // setCustomers((customers:Customer[]) => customers.slice(0,-1));
-        dispatchCustomer({type: 'DELETE_CUSTOMER', payload: email});
+        console.log(email);
+        dispatchCustomer({type: 'DELETE_CUSTOMER', payload: {email }}); /*object shorthand notation when we use this it is
+         equal to {email: email}*/
     }
 
     function deleteItem() {
         setItems((items:Item[]) => items.slice(0,-1));
-    }
-
-    function deleteCustomerByEmail() {
-        // const filteredEmail = customers.filter((customer:Customer) => customer.email === email);
-        // setCustomers((customers:Customer[]) => customers.slice(filteredEmail.length));
     }
 
     function deleteItemByCode() {
@@ -34,15 +32,11 @@ export default function Delete() {
         <div className="grid grid-cols-2 main-section p-6">
 
             {/*customer section*/}
-            <div className="left-card m-3">
+            <div className="left-card m-3" id="delete-component">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Delete Customer</h2>
 
-                <input className="mb-6 p-2" type="text" placeholder="Email"
-                       onChange={(e) => setEmail(e.target.value)}/>
-                <div className="flex w-3/4 justify-center gap-10">
-                    <button className="w-2/4" onClick={deleteCustomer}>Delete Last Customer</button>
-                    <button className="w-2/4" onClick={deleteCustomerByEmail}>Delete By Email</button>
-                </div>
+                {/*flex w-3/4 justify-center gap-10*/}
+                <CustomerModal handleSubmit={deleteCustomer} setName={() => {}} setEmail={setEmail} setPhone={() => {}}>Delete Customer</CustomerModal>
 
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
