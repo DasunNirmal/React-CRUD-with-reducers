@@ -5,27 +5,22 @@ import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
 import './Delete.css'
 import {CustomerModal} from "../component/CustomerModal.tsx";
+import {ItemModal} from "../component/ItemModal.tsx";
 
 export default function Delete() {
 
     const [customers, dispatchCustomer] = useContext(CustomerContext);
-    const [items, setItems] = useContext(ItemContext);
+    const [items, dispatchItem] = useContext(ItemContext);
     const [email, setEmail] = useState("");
     const [code, setCode] = useState("");
 
     function deleteCustomer() {
-        console.log(email);
         dispatchCustomer({type: 'DELETE_CUSTOMER', payload: {email }}); /*object shorthand notation when we use this it is
          equal to {email: email}*/
     }
 
     function deleteItem() {
-        setItems((items:Item[]) => items.slice(0,-1));
-    }
-
-    function deleteItemByCode() {
-        const filteredItem = items.filter((item:Item) => item.code === code);
-        setItems((items:Item[]) => items.slice(filteredItem.length));
+        dispatchItem({type: 'DELETE_ITEM', payload: {code }});
     }
 
     return (
@@ -35,7 +30,6 @@ export default function Delete() {
             <div className="left-card m-3" id="delete-component">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Delete Customer</h2>
 
-                {/*flex w-3/4 justify-center gap-10*/}
                 <CustomerModal handleSubmit={deleteCustomer} setName={() => {}} setEmail={setEmail} setPhone={() => {}}>Delete Customer</CustomerModal>
 
                 <table className="table-auto border border-gray-300 w-full mt-6">
@@ -59,15 +53,10 @@ export default function Delete() {
             </div>
 
             {/*item section*/}
-            <div className="right-card m-3">
+            <div className="right-card m-3" id="delete-component">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Update Items</h2>
 
-                <input className="mb-6 p-2" type="text" placeholder="Item Code"
-                onChange={(e) => setCode(e.target.value)} />
-                <div className="flex w-3/4 justify-center gap-10">
-                    <button className="w-2/4" onClick={deleteItem}>Delete Last Item</button>
-                    <button className="w-2/4" onClick={deleteItemByCode}>Delete By Item Code</button>
-                </div>
+                <ItemModal handleSubmit={deleteItem} setCode={setCode} setItemName={() => {}} setQty={() => {}}>Delete Item</ItemModal>
 
                 <table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
