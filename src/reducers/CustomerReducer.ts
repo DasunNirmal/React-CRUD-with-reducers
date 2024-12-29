@@ -9,7 +9,7 @@ export function CustomerReducer(state:Customer[], action:{type:string, payload:C
             return state.map((customers:Customer) => customers.email === action.payload.email ?
                 {...customers, name:action.payload.name,email:action.payload.email,phone:action.payload.phone} : customers);
         case 'DELETE_CUSTOMER':
-            return (customers:Customer[]) => customers.slice(0,-1);
+            return state.filter((customer: Customer) => customer.email !== action.payload.email);
         default:
             return state;
     }
