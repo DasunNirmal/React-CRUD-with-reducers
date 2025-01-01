@@ -6,6 +6,7 @@ import {Item} from "../models/Item.ts";
 import {CustomerModal} from "../component/CustomerModal.tsx";
 import {ItemModal} from "../component/ItemModal.tsx";
 import {CustomerTable} from "../component/CustomerTable.tsx";
+import {ItemTable} from "../component/ItemTable.tsx";
 
 export default function Save() {
     const [customers, dispatchCustomer] = useContext(CustomerContext);
@@ -32,6 +33,12 @@ export default function Save() {
         setName(cell.name);
         setEmail(cell.email);
         setPhone(cell.phone);
+    }
+
+    function getTableDataItems(cell) {
+        setCode(cell.code);
+        setItemName(cell.itemName);
+        setQty(cell.qty);
     }
 
     return (
@@ -66,8 +73,8 @@ export default function Save() {
             <div className="right-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Items</h2>
 
-                <ItemModal handleSubmit={addItem} setCode={setCode} setItemName={setItemName} setQty={setQty}>Add Item</ItemModal>
-                <table className="table-auto border border-gray-300 w-full mt-6">
+                <ItemModal handleSubmit={addItem} setCode={setCode} setItemName={setItemName} setQty={setQty} code={code} itemName={itemName} qty={qty}>Add Item</ItemModal>
+                {/*<table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
                         <td>Item Code</td>
@@ -77,14 +84,17 @@ export default function Save() {
                     </thead>
                     <tbody>
                     {items.map((items: Item) => (
-                        <tr key={items.code}>
+                        <tr key={items.code} onClick={() => {
+                            getTableDataItems(items)
+                        }}>
                             <td>{items.code}</td>
                             <td>{items.itemName}</td>
                             <td>{items.qty}</td>
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table>*/}
+                <ItemTable items={items} getTableDataItems={getTableDataItems}></ItemTable>
             </div>
         </div>
     )
