@@ -29,7 +29,7 @@ export default function Save() {
         dispatchItem({type: 'ADD_ITEM', payload: newItem});
     }
 
-    function getTableData(cell) {
+    function getTableDataCustomers(cell) {
         setName(cell.name);
         setEmail(cell.email);
         setPhone(cell.phone);
@@ -48,25 +48,7 @@ export default function Save() {
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Customers</h2>
 
                 <CustomerModal handleSubmit={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone} name={name} email={email} phone={phone}>Add Customer</CustomerModal>
-                {/*<table className="table-auto border border-gray-300 w-full mt-6">
-                    <thead>
-                    <tr>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>phone</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {customers.map((customer: Customer) => (
-                        <tr key={customer.email} onClick={() => {getTableData(customer)}}>
-                            <td>{customer.name}</td>
-                            <td>{customer.email}</td>
-                            <td>{customer.phone}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>*/}
-                <CustomerTable customers={customers} getTableData={getTableData}></CustomerTable>
+                <CustomerTable customers={customers} getTableData={getTableDataCustomers}></CustomerTable>
             </div>
 
             {/*item section*/}
@@ -74,26 +56,6 @@ export default function Save() {
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Items</h2>
 
                 <ItemModal handleSubmit={addItem} setCode={setCode} setItemName={setItemName} setQty={setQty} code={code} itemName={itemName} qty={qty}>Add Item</ItemModal>
-                {/*<table className="table-auto border border-gray-300 w-full mt-6">
-                    <thead>
-                    <tr>
-                        <td>Item Code</td>
-                        <td>Item Name</td>
-                        <td>Quantity</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {items.map((items: Item) => (
-                        <tr key={items.code} onClick={() => {
-                            getTableDataItems(items)
-                        }}>
-                            <td>{items.code}</td>
-                            <td>{items.itemName}</td>
-                            <td>{items.qty}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>*/}
                 <ItemTable items={items} getTableDataItems={getTableDataItems}></ItemTable>
             </div>
         </div>
