@@ -6,6 +6,7 @@ import {Item} from "../models/Item.ts";
 import './Delete.css'
 import {CustomerModal} from "../component/CustomerModal.tsx";
 import {ItemModal} from "../component/ItemModal.tsx";
+import {CustomerTable} from "../component/CustomerTable.tsx";
 
 export default function Delete() {
 
@@ -23,6 +24,10 @@ export default function Delete() {
         dispatchItem({type: 'DELETE_ITEM', payload: {code }});
     }
 
+    function getTableData(cell) {
+        setEmail(cell.email);
+    }
+
     return (
         <div className="grid grid-cols-2 main-section p-6">
 
@@ -30,9 +35,9 @@ export default function Delete() {
             <div className="left-card m-3" id="delete-component">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Delete Customer</h2>
 
-                <CustomerModal handleSubmit={deleteCustomer} setName={() => {}} setEmail={setEmail} setPhone={() => {}}>Delete Customer</CustomerModal>
+                <CustomerModal handleSubmit={deleteCustomer} setName={() => {}} setEmail={setEmail} setPhone={() => {}} name={() => {}} email={email} phone={() => {}}>Delete Customer</CustomerModal>
 
-                <table className="table-auto border border-gray-300 w-full mt-6">
+                {/*<table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
                         <td>Name</td>
@@ -49,7 +54,8 @@ export default function Delete() {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table>*/}
+                <CustomerTable customers={customers} getTableData={getTableData}></CustomerTable>
             </div>
 
             {/*item section*/}
