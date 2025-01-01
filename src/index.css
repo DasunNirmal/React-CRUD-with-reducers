@@ -16,7 +16,7 @@
   thead, tbody {
     @apply border border-sky-950 text-center bg-sky-200 text-sky-950 font-semibold;
   }
-  tr {
+  tbody>tr {
     @apply hover:bg-sky-700 hover:text-white hover:font-bold transition;
   }
 }
