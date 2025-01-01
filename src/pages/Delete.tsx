@@ -7,6 +7,7 @@ import './Delete.css'
 import {CustomerModal} from "../component/CustomerModal.tsx";
 import {ItemModal} from "../component/ItemModal.tsx";
 import {CustomerTable} from "../component/CustomerTable.tsx";
+import {ItemTable} from "../component/ItemTable.tsx";
 
 export default function Delete() {
 
@@ -26,6 +27,10 @@ export default function Delete() {
 
     function getTableData(cell) {
         setEmail(cell.email);
+    }
+
+    function getTableDataItems(cell) {
+        setCode(cell.code);
     }
 
     return (
@@ -62,9 +67,8 @@ export default function Delete() {
             <div className="right-card m-3" id="delete-component">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Update Items</h2>
 
-                <ItemModal handleSubmit={deleteItem} setCode={setCode} setItemName={() => {}} setQty={() => {}}>Delete Item</ItemModal>
-
-                <table className="table-auto border border-gray-300 w-full mt-6">
+                <ItemModal handleSubmit={deleteItem} setCode={setCode} setItemName={() => {}} setQty={() => {}} code={code} itemName={() => {}} qty={() => {}}>Delete Item</ItemModal>
+                {/*<table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
                         <td>Item Code</td>
@@ -81,7 +85,8 @@ export default function Delete() {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table>*/}
+                <ItemTable items={items} getTableDataItems={getTableDataItems}></ItemTable>
             </div>
         </div>
     )
