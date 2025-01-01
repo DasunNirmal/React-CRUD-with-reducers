@@ -5,6 +5,7 @@ import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
 import {CustomerModal} from "../component/CustomerModal.tsx";
 import {ItemModal} from "../component/ItemModal.tsx";
+import {CustomerTable} from "../component/CustomerTable.tsx";
 
 export default function Update() {
 
@@ -28,14 +29,20 @@ export default function Update() {
         dispatchItem({type: 'UPDATE_ITEM', payload: newItem});
     }
 
+    function getTableData(cell) {
+        setName(cell.name);
+        setEmail(cell.email);
+        setPhone(cell.phone);
+    }
+
     return (
         <div className="grid grid-cols-2 main-section p-6">
             {/*customer section*/}
             <div className="left-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Update Customer</h2>
 
-                <CustomerModal handleSubmit={updateCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Update Customer</CustomerModal>
-                <table className="table-auto border border-gray-300 w-full mt-6">
+                <CustomerModal handleSubmit={updateCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone} name={name} email={email} phone={phone}>Update Customer</CustomerModal>
+                {/*<table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
                         <td>Name</td>
@@ -52,7 +59,8 @@ export default function Update() {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table>*/}
+                <CustomerTable customers={customers} getTableData={getTableData}></CustomerTable>
             </div>
 
             {/*item section*/}
