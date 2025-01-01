@@ -5,6 +5,7 @@ import {ItemContext} from "../store/ItemProvider.tsx";
 import {Item} from "../models/Item.ts";
 import {CustomerModal} from "../component/CustomerModal.tsx";
 import {ItemModal} from "../component/ItemModal.tsx";
+import {CustomerTable} from "../component/CustomerTable.tsx";
 
 export default function Save() {
     const [customers, dispatchCustomer] = useContext(CustomerContext);
@@ -27,14 +28,20 @@ export default function Save() {
         dispatchItem({type: 'ADD_ITEM', payload: newItem});
     }
 
+    function getTableData(cell) {
+        setName(cell.name);
+        setEmail(cell.email);
+        setPhone(cell.phone);
+    }
+
     return (
         <div className="grid grid-cols-2 main-section p-6">
             {/*customer section*/}
             <div className="left-card m-3">
                 <h2 className="mb-6 p-2 w-fit text-2xl">Save Customers</h2>
 
-                <CustomerModal handleSubmit={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone}>Add Customer</CustomerModal>
-                <table className="table-auto border border-gray-300 w-full mt-6">
+                <CustomerModal handleSubmit={addCustomer} setName={setName} setEmail={setEmail} setPhone={setPhone} name={name} email={email} phone={phone}>Add Customer</CustomerModal>
+                {/*<table className="table-auto border border-gray-300 w-full mt-6">
                     <thead>
                     <tr>
                         <td>Name</td>
@@ -44,14 +51,15 @@ export default function Save() {
                     </thead>
                     <tbody>
                     {customers.map((customer: Customer) => (
-                        <tr key={customer.email}>
+                        <tr key={customer.email} onClick={() => {getTableData(customer)}}>
                             <td>{customer.name}</td>
                             <td>{customer.email}</td>
                             <td>{customer.phone}</td>
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table>*/}
+                <CustomerTable customers={customers} getTableData={getTableData}></CustomerTable>
             </div>
 
             {/*item section*/}
